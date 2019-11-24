@@ -18,6 +18,7 @@ before_install:
 install:
   - git clone --quiet --depth=100 "https://github.com/nanomsg/nanomsg.git" ./builds/nanomsg
       && pushd ./builds/nanomsg
+      && git checkout -b 1.1.5
       && mkdir build
       && cd build
       && cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE:-Debug} ..
