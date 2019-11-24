@@ -21,14 +21,13 @@ before_install:
 install:
   - git clone --quiet --depth=100 "https://github.com/nanomsg/nanomsg.git" ./builds/nanomsg
       && pushd ./builds/nanomsg
-      && git checkout -b "${TRAVIS_TAG}"
-      && mkdir build
-      && cd build
-      && cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE:-Debug} ..
-      && ninja
-      && sudo cmake --build . --target install
-      && sudo ldconfig
-      && popd
+  - export TRAVIS_TAG=$(cat .version)
+  - git checkout -b "${TRAVIS_TAG}"
+  - mkdir build && cd build
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE:-Debug} ..
+  - ninja
+  - sudo cmake --build . --target install
+  - sudo ldconfig && popd
 
 # command to run tests, e.g. python setup.py test
 script: LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib python setup.py test
