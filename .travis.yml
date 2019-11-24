@@ -2,12 +2,15 @@ sudo: required
 
 language: python
 python:
+  - "2.7"
   - "3.5"
   - "3.6"
-  - "2.7"
+  - "3.7"
+  - "3.8-dev"
+  - "nightly"
 
-env:
-  - TRAVIS_TAG="1.1.5"
+#env:
+#  - TRAVIS_TAG="1.1.5"
 
 before_install:
   - sudo apt-get -qq update
@@ -31,3 +34,8 @@ install:
 
 # command to run tests, e.g. python setup.py test
 script: LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib python setup.py test
+
+matrix:
+  allow_failures:
+    - python: "3.8-dev"
+    - python: "nightly"
