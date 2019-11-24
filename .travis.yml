@@ -1,8 +1,17 @@
+sudo: required
+
 language: python
 python:
   - "3.5"
   - "3.6"
   - "2.7"
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y software-properties-common
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+  - sudo apt-get -qq update
+  - sudo apt-get install -y --allow-unauthenticated build-essential cmake ninja-build
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 # Build steps taken from
@@ -12,9 +21,8 @@ install:
       && pushd ~/builds/nanomsg
       && mkdir build
       && cd build
-      && cmake ..
-      && cmake --build .
-      && ctest -C Debug .
+      && cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE:-Debug} ..
+      && ninja
       && sudo cmake --build . --target install
       && sudo ldconfig
       && popd
