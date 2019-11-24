@@ -159,7 +159,7 @@ class Socket(object):
 
     """
 
-    _INT_PACKER = _Struct(str('l'))
+    _INT_PACKER = _Struct(str('i'))
 
     class _Endpoint(object):
         def __init__(self, socket, endpoint_id, address):
@@ -373,7 +373,7 @@ class Socket(object):
         buf = create_writable_buffer(Socket._INT_PACKER.size)
         Socket._INT_PACKER.pack_into(buf, 0, value)
         _nn_check_positive_rtn(wrapper.nn_setsockopt(self.fd, level, option,
-                                                     buf))
+                               buf))
 
     def get_int_option(self, level, option):
         size = Socket._INT_PACKER.size
