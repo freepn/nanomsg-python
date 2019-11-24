@@ -13,7 +13,7 @@ except NameError:
 
 nanoconfig_started = False
 
-#Import constants into module with NN_ prefix stripped
+# Import constants into module with NN_ prefix stripped
 for name, value in wrapper.nn_symbols():
     if name.startswith('NN_'):
         name = name[3:]
@@ -174,7 +174,7 @@ class Socket(object):
         def shutdown(self):
             self._fdocket._endpoints.remove(self)
             _nn_check_positive_rtn(wrapper.nn_shutdown(self._fdocket._fd,
-                                               self._endpoint_id))
+                                                       self._endpoint_id))
 
         def __repr__(self):
             return '<%s socket %r, id %r, address %r>' % (
@@ -258,8 +258,8 @@ class Socket(object):
 
     send_fd = property(_get_send_fd, doc='Send file descripter')
     recv_fd = property(_get_recv_fd, doc='Receive file descripter')
-    linger  = property(_get_linger, _set_linger, doc='Socket linger in '
-                       'milliseconds (0.001 seconds)')
+    linger = property(_get_linger, _set_linger, doc='Socket linger in '
+                      'milliseconds (0.001 seconds)')
     recv_buffer_size = property(_get_recv_buffer_size, _set_recv_buffer_size,
                                 doc='Receive buffer size in bytes')
     send_buffer_size = property(_get_send_buffer_size, _set_send_buffer_size,
@@ -299,7 +299,7 @@ class Socket(object):
     @property
     def uses_nanoconfig(self):
         return (self._endpoints and
-            isinstance(self._endpoints[0], Socket.NanoconfigEndpoint))
+                isinstance(self._endpoints[0], Socket.NanoconfigEndpoint))
 
     def bind(self, address):
         """Add a local endpoint to the socket"""

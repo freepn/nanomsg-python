@@ -36,7 +36,7 @@ def _c_func_wrapper_factory(cdecl_text):
             'struct nn_msghdr *': ctypes.c_void_p,
             'struct nn_pollfd *': ctypes.c_void_p,
         }
-        type_def_without_const = type_def.replace('const ','')
+        type_def_without_const = type_def.replace('const ', '')
         if type_def_without_const in types:
             return types[type_def_without_const]
         elif (type_def_without_const.endswith('*') and
@@ -45,10 +45,10 @@ def _c_func_wrapper_factory(cdecl_text):
         else:
             raise KeyError(type_def)
 
-        return types[type_def.replace('const ','')]
+        return types[type_def.replace('const ', '')]
 
-    a, b = [i.strip() for i in cdecl_text.split('(',1)]
-    params, _ = b.rsplit(')',1)
+    a, b = [i.strip() for i in cdecl_text.split('(', 1)]
+    params, _ = b.rsplit(')', 1)
     rtn_type, name = move_pointer_and_strip(*a.rsplit(' ', 1))
     param_spec = []
     for param in params.split(','):
@@ -276,7 +276,7 @@ try:
     else:
         _nclib = ctypes.cdll.LoadLibrary('libnanoconfig.so')
 except OSError:
-    pass # No nanoconfig, sorry
+    pass  # No nanoconfig, sorry
 else:
     # int nc_configure (int s, const char *addr)
     nc_configure = _functype(ctypes.c_int, ctypes.c_int, ctypes.c_char_p)(

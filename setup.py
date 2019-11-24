@@ -8,7 +8,7 @@ from distutils.core import Extension
 from distutils.command.build_ext import build_ext
 
 
-with open(os.path.join('nanomsg','version.py')) as f:
+with open(os.path.join('nanomsg', 'version.py')) as f:
     exec(f.read())
 
 
@@ -19,9 +19,9 @@ if sys.platform in ("win32", "cygwin"):
     # nanomsg installs to different directory based on architecture
     arch = platform.architecture()[0]
     if arch == "64bit":
-        include_dirs=[r'C:\Program Files\nanomsg\include',]
+        include_dirs = [r'C:\Program Files\nanomsg\include', ]
     else:
-        include_dirs=[r'C:\Program Files (x86)\nanomsg\include',]
+        include_dirs = [r'C:\Program Files (x86)\nanomsg\include', ]
 else:
     include_dirs = None
 
@@ -35,18 +35,18 @@ try:
         _lib = ctypes.cdll.LoadLibrary('libnanoconfig.so')
 except OSError:
     # Building without nanoconfig; need to turn NN_STATIC_LIB on
-    define_macros = [('NN_STATIC_LIB','ON')]
+    define_macros = [('NN_STATIC_LIB', 'ON')]
 else:
     # Building with nanoconfig
     libraries.append(str('nanoconfig'))
     define_macros = [('WITH_NANOCONFIG', '1')]
 
 cpy_extension = Extension(str('_nanomsg_cpy'),
-                    define_macros=define_macros,
-                    sources=[str('_nanomsg_cpy/wrapper.c')],
-                    libraries=libraries,
-                    include_dirs=include_dirs,
-                    )
+                          define_macros=define_macros,
+                          sources=[str('_nanomsg_cpy/wrapper.c')],
+                          libraries=libraries,
+                          include_dirs=include_dirs,
+                          )
 install_requires = []
 
 try:

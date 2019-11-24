@@ -33,7 +33,12 @@ install:
   - sudo ldconfig && popd
 
 # command to run tests, e.g. python setup.py test
-script: LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib python setup.py test
+script:
+    - tox
+
+# needs coveralls integration
+#after_success:
+#    - coveralls
 
 matrix:
   allow_failures:
