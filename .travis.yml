@@ -16,8 +16,8 @@ before_install:
 # Build steps taken from
 # https://github.com/nanomsg/nanomsg#build-it-with-cmake
 install:
-  - git clone --quiet --depth=100 "https://github.com/nanomsg/nanomsg.git" ~/builds/nanomsg
-      && pushd ~/builds/nanomsg
+  - git clone --quiet --depth=100 "https://github.com/nanomsg/nanomsg.git" ./builds/nanomsg
+      && pushd ./builds/nanomsg
       && mkdir build
       && cd build
       && cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE:-Debug} ..
