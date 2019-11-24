@@ -22,6 +22,7 @@ before_install:
 # Build steps taken from
 # https://github.com/nanomsg/nanomsg#build-it-with-cmake
 install:
+  - pip install tox-travis coveralls
   - git clone --quiet --depth=100 "https://github.com/nanomsg/nanomsg.git" ./builds/nanomsg
       && pushd ./builds/nanomsg
   - export TRAVIS_TAG=$(cat .version)
